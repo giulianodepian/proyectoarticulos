@@ -10,3 +10,6 @@ class Articulos(models.Model):
     fechaModificacion = models.DateTimeField(auto_now=True)
     descripcion = models.TextField()
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "articulos"
