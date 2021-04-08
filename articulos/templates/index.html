@@ -1,7 +1,12 @@
+<!DOCTYPE html>
+<head>
+	<title>Home</title>
+</head>
 <h1>Articulos</h1>
 <ul>
 {% for articulo in object_list %}
-	<li>{{articulo.titulo}}</li>
+	{% url 'articulo' pk=articulo.id as articulourl %}
+	<li><a href="{{articulourl}}">{{articulo.titulo}}</a></li>
 {% empty %}
 	<li>No hay articulos</li>
 {% endfor %}
