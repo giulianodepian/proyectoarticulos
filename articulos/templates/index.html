@@ -7,7 +7,12 @@
 {% for articulo in object_list %}
 	{% url 'articulo' pk=articulo.id as articulourl %}
 	<li><a href="{{articulourl}}">{{articulo.titulo}}</a></li>
+	{% url 'modificarArticulo' pk=articulo.id as modificarurl %}
+	<a href="{{modificarurl}}">Editar</a>
+	{% url 'eliminarArticulo' pk=articulo.id as eliminarurl %}
+	<a href="{{eliminarurl}}">Eliminar</a>
 {% empty %}
 	<li>No hay articulos</li>
 {% endfor %}
 </ul>
+<a href="{% url 'crearArticulo' %}">Crear Nuevo Articulo</a>
