@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from .models import Articulos
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -6,6 +7,11 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.views import LoginView, LogoutView
+from django.views import View
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from .forms import CustomUserCreation
+from django.shortcuts import render
 
 # Create your views here.
 
@@ -55,3 +61,20 @@ class Login(LoginView):
 class Logout(LogoutView):
     template_name = 'templates/logout.html'
     next_page = '/'
+
+
+class CreateView(View):
+    def post(self, request):
+        form = CustomUserCreation(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('index')
+        return render(request, 'templates/crearUsuario.html', {'form': form})
+
+    def get(self, request):
+        form = CustomUserCreation()
+        return render(request, 'templates/crearUsuario.html', {'form': form})
