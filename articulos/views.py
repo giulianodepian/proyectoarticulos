@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views import View
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from .forms import CustomUserCreation
 from django.shortcuts import render
 
@@ -47,7 +47,8 @@ class ArticulosUpdateView(UpdateView):
 
 
 @method_decorator(login_required, name='dispatch')
-class ArticulosDeleteView(DeleteView):
+class ArticulosDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'articulos.delete_articulos'
     model = Articulos
 
     def get_success_url(self):
