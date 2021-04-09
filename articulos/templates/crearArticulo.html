@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<head>
+	<title>Crear Articulo</title>
+</head>
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Crear">
+</form>

@@ -15,7 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from articulos.views import ArticulosListView, ArticulosDetailView, ArticulosCreateView, ArticulosUpdateView, ArticulosDeleteView, LoginView, LogoutView, CreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', ArticulosListView.as_view(template_name='templates/index.html'), name='index'),
+    path('articulo/<int:pk>/', ArticulosDetailView.as_view(template_name='templates/articulo.html'), name='articulo'),
+    path('crearArticulo/', ArticulosCreateView.as_view(template_name='templates/crearArticulo.html'), name='crearArticulo'),
+    path('modificarArticulo/<int:pk>/', ArticulosUpdateView.as_view(template_name='templates/modificarArticulo.html'), name='modificarArticulo'),
+    path('eliminarArticulo/<int:pk>/', ArticulosDeleteView.as_view(template_name='templates/eliminarArticulo.html'), name='eliminarArticulo'),
+    path('login/', LoginView.as_view(template_name='templates/login.html'), name='login'),
+    path('logout/', LogoutView.as_view(template_name='templates/logout.html', next_page='/'), name='logout'),
+    path('crearUsuario/', CreateView.as_view(), name='crearUsuario')
 ]

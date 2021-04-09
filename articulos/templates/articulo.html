@@ -1,0 +1,17 @@
+{% extends 'templates/base.html' %}
+
+<!DOCTYPE html>
+{% block head %}
+<head>
+	<title>{{object.titulo}}</title>
+</head>
+{% endblock %}
+
+{% block content %}
+<h1>{{object.titulo}}</h1>
+<p>{{object.descripcion}}</p>
+<p>Creado por: {{object.autor.username}}</p>
+<p>Fecha de Creacion: {{object.fechaCreacion}}</p>
+<p>Ultima Modificacion: {{object.fechaModificacion}}</p>
+<a href="{% url 'index' %}">Volver a la Pagina Principal</a>
+{% endblock %}
